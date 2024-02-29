@@ -7,5 +7,5 @@ The dataset used in this code can be found here: [add Zenodo link here]
 **How to use:**
 1. Use "trajectory_processing.py" to process the dataset into trajectories.
 2. Use "clustering_algorithm.py" to train a model that identifies aircraft behaviour categories using a trajectory dataset.
-3. Use "plot_results_visuals.py" to generate visuals used to interpret the results of "cluster_agorithm.py"
+3. Use "plot_results_visuals.py" to generate visuals used to interpret the results produced by "clustering_agorithm.py"
 
