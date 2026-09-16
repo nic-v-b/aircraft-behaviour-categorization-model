@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.11.16"
 
       - name: Install test dependencies
         run: |
@@ -29,4 +29,4 @@ jobs:
         run: python -m pytest -q
 
       - name: Run reproducible clustering demo
-        run: python examples/run_demo.py
+        run: python -m examples.run_demo
