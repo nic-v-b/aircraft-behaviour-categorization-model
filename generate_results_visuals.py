@@ -1527,7 +1527,6 @@ def plot_hdg_vs_time_all_clusters(df, path, ax=None, plt_kwargs={}):
     fig_name = path + "hdg vs time.png"
     fig.savefig(fig_name, dpi=200)
 
-import pyproj
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler(feature_range=(-1,1))
 
@@ -1833,9 +1832,7 @@ def plot_alt_vs_time_all_clusters(df, path, ax=None, plt_kwargs={}):
 # print(list(np.arange(0, len(list(cluster_data_df.columns)), 1)))
 # cluster_idx_list = [7, 14, 16]
 # cluster_idx_list = [24, 1, 26]
-cluster_idx_list = list(np.arange(0, len(list(cluster_data_df.columns)), 1))
-# results_path = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Aviation 2023/Code and results/2_2. Aircraft behaviour category detection/results visuals/'
-results_path = PATHS.visuals_dir
+cluster_idx_list = list(np.arange(0, len(list(cluster_data_df.columns)), 1))results_path = PATHS.visuals_dir
 # fig1.write_html(results_path+"2D_map_all_tracks.html")
 # fig1.write_html(results_path+"nb clusters "+str(n_clusters)+"2D_map_all_tracks.html")
 fig1.write_html(data_dir+"results/nb clusters "+str(n_clusters)+"_2D_map_all_tracks.html")
