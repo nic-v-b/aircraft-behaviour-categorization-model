@@ -27,7 +27,7 @@ For a small, self-contained demonstration that does not require the original ADS
 dataset, run:
 
 ```bash
-python examples/run_demo.py
+python -m examples.run_demo
 ```
 
 This demonstration uses synthetic multivariate trajectories and the same

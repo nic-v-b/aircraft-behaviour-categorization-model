@@ -1,6 +1,6 @@
 # Aircraft Behaviour Categorization Using Machine Learning
 
-[![Python CI](https://github.com/nic-v-b/aircraft-behaviour-categorization-model/actions/workflows/python-syntax.yml/badge.svg)](https://github.com/nic-v-b/aircraft-behaviour-categorization-model/actions/workflows/python-syntax.yml)
+[![Python CI](https://github.com/nic-v-b/aircraft-behaviour-categorization-model/actions/workflows/python-ci.yml/badge.svg)](https://github.com/nic-v-b/aircraft-behaviour-categorization-model/actions/workflows/python-ci.yml)
 
 Research implementation accompanying the peer-reviewed article:
 
@@ -67,7 +67,7 @@ The work was developed as part of a broader research program on machine learning
 ├── requirements-ci.txt
 ├── RESEARCH_CODE_NOTES.md
 ├── .env.example
-└── .github/workflows/python-syntax.yml
+└── .github/workflows/python-ci.yml
 ```
 
 ## Example outputs
