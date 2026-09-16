@@ -1467,7 +1467,6 @@ def ac_info_n_cluster_data_merger(ac_info_data, cluster_track_id_df):
 
     return ac_info_data
 
-import pyproj
 # def NdArrayFct(ndarray):
 #
 #     ndarray
