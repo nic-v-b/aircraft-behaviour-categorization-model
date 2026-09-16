@@ -48,6 +48,11 @@ The work was developed as part of a broader research program on machine learning
 ├── trajectory_processing.py
 ├── clustering_algorithm.py
 ├── generate_results_visuals.py
+├── aircraft_behaviour/
+│   ├── config.py
+│   ├── geo_utils.py
+│   └── time_utils.py
+├── tests/
 ├── sample results/
 ├── nb clusters 4 silhouette plot.png
 ├── nb clusters 4 feature importance plot.png
@@ -102,11 +107,27 @@ export MAPBOX_TOKEN="pk.your_token_here"
 
 See `.env.example` for the expected variable name.
 
+### Portable research-data paths
+
+The original research implementation referenced absolute paths on the development workstation. Those locations are now handled by `aircraft_behaviour/config.py`.
+
+You can point the scripts to external copies of the study data with:
+
+- `ABC_RAW_ADSB_DIR`
+- `ABC_PAPER_DIR`
+- `ABC_AIRCRAFT_REGISTRY_FILE`
+- `ABC_JAT_DATA_DIR`
+- `ABC_FLIGHT_TRACKS_DIR`
+- `ABC_RESULTS_DIR`
+- `ABC_VISUALS_DIR`
+
+If they are not set, repository-relative defaults under `data/` and `results/` are used.
+
 ## Data and reproducibility
 
 The original study used real-world ADS-B observations together with aircraft-registration metadata. The full source dataset is not redistributed in this repository.
 
-The repository currently preserves the research scripts used for the published study. Some study-specific input/output paths from the original research environment remain in the scripts and will be migrated to portable configuration in a follow-up refactor. Sample outputs are included so that the structure of the analysis results can be inspected without the original dataset.
+The repository preserves the research scripts used for the published study. Study-specific input/output paths are now handled through portable environment-based configuration. Sample outputs are included so that the structure of the analysis results can be inspected without the original dataset.
 
 For the study design, preprocessing methodology, features, clustering formulation, and interpretation of results, see the published paper linked above.
 
@@ -114,7 +135,7 @@ For the study design, preprocessing methodology, features, clustering formulatio
 
 This repository began as research code developed to support the published analysis. It is being incrementally curated for clearer documentation, portability, testing, and reproducibility while preserving the scientific behavior of the original implementation.
 
-A lightweight GitHub Actions workflow currently performs automated Python syntax checks on pushes and pull requests. Functional/unit tests will be added as the research scripts are modularized.
+Shared configuration, time-conversion, and geospatial helpers have been extracted into reusable modules. GitHub Actions now performs automated syntax checks and runs `pytest` unit tests on every push and pull request. Additional scientific regression tests can be added as representative input data are made reproducible.
 
 ## Citation
 
