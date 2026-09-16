@@ -14,6 +14,8 @@ from time import sleep
 from tqdm import tqdm
 import datetime
 from scipy.signal import savgol_filter
+from aircraft_behaviour.config import ResearchPaths
+from aircraft_behaviour.time_utils import unix_to_local, unix_to_utc
 
 # set pandas dataframe display properties
 max_rows = 100
@@ -24,6 +26,8 @@ pd.set_option('display.max_columns', max_cols)
 pd.set_option('display.min_rows', max_rows)
 pd.set_option('display.max_rows', max_rows)
 
+PATHS = ResearchPaths.from_env()
+
 # data_selector = '30 min'
 # data_selector = '1 h'
 # data_selector = '12 h'
@@ -31,9 +35,8 @@ pd.set_option('display.max_rows', max_rows)
 data_selector = '2 days'
 # data_selector = '1 week'
 
-# output_dir = r'C:/Users/nicol/Google Drive/PhD/Coding/Python scripts/1. Determine what is the right data to collect/histograms/'
-output_dir = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Aviation 2023/Code and results/2. Collect and process the selected data/'
-paper_dir = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Aviation 2023/Code and results/2_2. Aircraft behaviour category detection/'
+output_dir = PATHS.raw_adsb_dir
+paper_dir = PATHS.paper_dir
 
 if data_selector == '30 min':
     adsb_df = pd.read_csv(output_dir+'histogram data_2018-01-01 09-00-00_2018-01-01 09-29-41.csv')  # 30 min
@@ -111,7 +114,7 @@ adsb_df = adsb_df[data_col[:]].dropna()
 print('removed nans, col containing unnamed and cols_to_remove')
 print("adsb_df 1 = \n", adsb_df)
 
-path_of_2021_data = r"C:/Users/nicol/Google Drive/PhD/Coding/Python scripts/2. Collect and process the selected data/data collection and processing scripts/aircraft registration processing/processed_data_2021.csv"
+path_of_2021_data = PATHS.aircraft_registry_file
 ac_data_2021 = pd.read_csv(path_of_2021_data, skip_blank_lines=True)
 ac_data_2021 = ac_data_2021.loc[:, ~ac_data_2021.columns.str.contains('^Unnamed')]
 print("raw data_2021 =\n", ac_data_2021)
@@ -139,15 +142,6 @@ print('merged ac_data_2021 and adsb_df dataframes into adsb_df')
 print("adsb_df 2 =\n", adsb_df)
 
 # convert time to datetime objects
-def unix_to_local(unix_time):
-    local_time = datetime.datetime.fromtimestamp(unix_time)
-    return local_time
-
-def unix_to_utc(unix_time):
-    # utc_time = datetime.datetime.utcfromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
-    utc_time = datetime.datetime.utcfromtimestamp(unix_time)
-    return utc_time
-
 # create new col of datetime objects used for all time operations
 # time_series_data['datetime'] = pd.to_datetime(time_series_data['time'])
 adsb_df['datetime'] = adsb_df['time'].apply(unix_to_local)
