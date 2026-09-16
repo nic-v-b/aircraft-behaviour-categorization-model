@@ -1,0 +1,11 @@
+numpy
+pandas
+matplotlib
+plotly
+sktime
+tqdm
+scipy
+scikit-learn
+tslearn
+pyproj
+seaborn
