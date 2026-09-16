@@ -12,7 +12,9 @@ from sklearn.preprocessing import normalize, Normalizer, MinMaxScaler
 from sklearn.metrics import silhouette_samples
 from matplotlib.ticker import MaxNLocator
 import plotly.express as px
-px.set_mapbox_access_token('pk.eyJ1IjoibmljdmIiLCJhIjoiY2thNzBxMnl0MDAyYzJ0bmZpeW1jOHNlayJ9.p5h0jJ78qIUWcRLQ19muYw')
+MAPBOX_TOKEN = os.getenv("MAPBOX_TOKEN")
+if MAPBOX_TOKEN:
+    px.set_mapbox_access_token(MAPBOX_TOKEN)
 
 startTime = time.time()
 
