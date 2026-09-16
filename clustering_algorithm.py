@@ -50,8 +50,8 @@ pd.set_option('display.max_columns', max_cols)
 pd.set_option('display.min_rows', max_rows)
 pd.set_option('display.max_rows', max_rows)
 
-path = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Aviation 2023/Code and results/2_2. Aircraft behaviour category detection/'
-# data_dir = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Aviation 2023/Code and results/2. Collect and process the selected data/'
+PATHS = ResearchPaths.from_env()
+path = PATHS.paper_dir
 
 # ac_info_data = pd.read_csv(path+'flight tracks/final data 1 day/smooth_tracks_dataset_all.csv')
 ac_info_data = pd.read_csv(path+'flight tracks/final data 1 day/smooth_tracks_dataset.csv')
@@ -113,35 +113,7 @@ time_series_data_turnrate = time_series_data_turnrate.loc[:, ~time_series_data_t
 # time_series_data = time_series_data['geoaltitude']
 # print('raw time_series_data =\n', time_series_data)
 
-# convert time to datetime objects
-def unix_to_local(unix_time):
-    local_time = datetime.datetime.fromtimestamp(unix_time)
-    return local_time
-
-def unix_to_utc(unix_time):
-    # utc_time = datetime.datetime.utcfromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
-    utc_time = datetime.datetime.utcfromtimestamp(unix_time)
-    return utc_time
-
-intervals = (
-    ('weeks', 604800),  # 60 * 60 * 24 * 7
-    ('days', 86400),    # 60 * 60 * 24
-    ('hours', 3600),    # 60 * 60
-    ('minutes', 60),
-    ('seconds', 1),
-)
-
-def display_time(seconds, granularity=2):
-    result = []
-
-    for name, count in intervals:
-        value = seconds // count
-        if value:
-            seconds -= value * count
-            if value == 1:
-                name = name.rstrip('s')
-            result.append("{} {}".format(value, name))
-    return ', '.join(result[:granularity])
+# Shared time helpers are provided by aircraft_behaviour.time_utils.
 
 # time_series_data['datetime'] = pd.to_datetime(time_series_data['datetime']) ------------------------------------- old version
 # time_series_data['datetime'] = time_series_data['datetime'].apply(unix_to_local)
@@ -1496,16 +1468,6 @@ def ac_info_n_cluster_data_merger(ac_info_data, cluster_track_id_df):
     return ac_info_data
 
 import pyproj
-geodesic = pyproj.Geod(ellps='WGS84')
-def get_bearing_from_2pts(lon1, lat1, lon2, lat2):
-    fwd_azimuth, back_azimuth, distance = geodesic.inv(lon1, lat1, lon2, lat2)
-    # print('-----')
-    # print('fwd_azimuth = ', fwd_azimuth)
-    if fwd_azimuth < 0:
-        fwd_azimuth = abs(fwd_azimuth)+180
-    # print('fwd_azimuth = ', fwd_azimuth)
-    return fwd_azimuth
-
 # def NdArrayFct(ndarray):
 #
 #     ndarray
@@ -2538,7 +2500,7 @@ def twod_traj_plot(ac_info_df, multitimeseries_data, model_preds, centroids, clu
                              hover_data=hover_data_list)
     fig1.update_traces(marker_size=1, mode="lines", opacity=0.9)
 
-    results_path = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Aviation 2023/Code and results/2_2. Aircraft behaviour category detection/results visuals/'
+    results_path = PATHS.visuals_dir
     fig1.write_html(results_path + "2D_map_all_tracks.html")
 
 # reference: https://towardsdatascience.com/interpretable-k-means-clusters-feature-importances-7e516eeb8d3c#7e14
@@ -2797,7 +2759,7 @@ def interpret_results_WCSS_Minimizers(features, centroids, path, ax=None, plt_kw
 import os
 # results_path = path + 'results/1 day results/'+str(n_clusters)+'clusters/'
 # os.mkdir(results_path)
-results_path = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Journal/Code and results/results/'
+results_path = PATHS.results_dir
 # used to delete all files in results diretory every time code is run
 for f in os.listdir(results_path):
     try:
@@ -3267,6 +3229,9 @@ for cluster_id in n_clusters_range:
     plot_2D_centroids_all_clusters(lon_df=centroids_lon_df, lat_df=centroids_lat_df, ac_info_df=ac_info_data, path=results_path)
 
 import winsound
+from aircraft_behaviour.config import ResearchPaths
+from aircraft_behaviour.geo_utils import get_bearing_from_2pts
+from aircraft_behaviour.time_utils import display_time, unix_to_local, unix_to_utc
 frequency = 700  # Set Frequency To 2500 Hertz
 duration = 500  # Set Duration To 1000 ms == 1 second
 winsound.Beep(frequency, duration)
