@@ -13,6 +13,9 @@ from sklearn.preprocessing import normalize, Normalizer, MinMaxScaler
 from sklearn.metrics import silhouette_samples
 from matplotlib.ticker import MaxNLocator
 import plotly.express as px
+from aircraft_behaviour.config import ResearchPaths
+from aircraft_behaviour.geo_utils import get_bearing_from_2pts
+from aircraft_behaviour.time_utils import display_time, unix_to_local, unix_to_utc
 MAPBOX_TOKEN = os.getenv("MAPBOX_TOKEN")
 if MAPBOX_TOKEN:
     px.set_mapbox_access_token(MAPBOX_TOKEN)
