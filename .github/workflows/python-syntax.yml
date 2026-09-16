@@ -26,4 +26,4 @@ jobs:
         run: python -m compileall -q aircraft_behaviour trajectory_processing.py clustering_algorithm.py generate_results_visuals.py
 
       - name: Run unit tests
-        run: pytest -q
+        run: python -m pytest -q
