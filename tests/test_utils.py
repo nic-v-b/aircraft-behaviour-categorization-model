@@ -1,5 +1,6 @@
 import datetime
 
+import pyproj
 import pytest
 
 from aircraft_behaviour.geo_utils import get_bearing_from_2pts
@@ -25,3 +26,11 @@ def test_unix_to_utc_epoch():
 def test_cardinal_bearings(lon2, lat2, expected):
     bearing = get_bearing_from_2pts(0.0, 0.0, lon2, lat2)
     assert bearing == pytest.approx(expected, abs=1e-6)
+
+
+def test_bearing_preserves_original_negative_azimuth_conversion():
+    geodesic = pyproj.Geod(ellps="WGS84")
+    original_azimuth, _back, _distance = geodesic.inv(0.0, 0.0, -1.0, 1.0)
+    expected = abs(original_azimuth) + 180 if original_azimuth < 0 else original_azimuth
+
+    assert get_bearing_from_2pts(0.0, 0.0, -1.0, 1.0) == pytest.approx(expected)
