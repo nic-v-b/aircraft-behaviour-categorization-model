@@ -18,6 +18,8 @@ import datetime
 from sklearn.cluster import DBSCAN
 import matplotlib.patheffects as pe
 import seaborn as sns
+from aircraft_behaviour.config import ResearchPaths
+from aircraft_behaviour.geo_utils import get_bearing_from_2pts
 
 # set pandas dataframe display properties
 max_rows = 50
@@ -29,7 +31,8 @@ pd.set_option('display.max_columns', max_cols)
 pd.set_option('display.min_rows', max_rows)
 pd.set_option('display.max_rows', max_rows)
 
-data_dir = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Journal/Code and results/'
+PATHS = ResearchPaths.from_env()
+data_dir = PATHS.jat_data_dir
 
 # results_dir = data_dir+'results/1 day results/2 clusters/results.csv'
 # results_dir = data_dir+'results/1 day results/4 clusters/results.csv'
@@ -83,7 +86,7 @@ cluster_data_df = cluster_data_df.loc[:, ~cluster_data_df.columns.str.contains('
 # data_df = data_df.fillna('filler')
 print('cluster_data_df = \n', cluster_data_df)
 
-flight_tracks_dir = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Aviation 2023/Code and results/2_2. Aircraft behaviour category detection/flight tracks/'
+flight_tracks_dir = PATHS.flight_tracks_dir
 
 ac_info_df = pd.read_csv(flight_tracks_dir+'final data 1 day/smooth_tracks_dataset.csv')
 ac_info_df = ac_info_df.loc[:, ~ac_info_df.columns.str.contains('^Unnamed')]
@@ -1524,17 +1527,6 @@ def plot_hdg_vs_time_all_clusters(df, path, ax=None, plt_kwargs={}):
     fig_name = path + "hdg vs time.png"
     fig.savefig(fig_name, dpi=200)
 
-import pyproj
-geodesic = pyproj.Geod(ellps='WGS84')
-def get_bearing_from_2pts(lon1, lat1, lon2, lat2):
-    fwd_azimuth, back_azimuth, distance = geodesic.inv(lon1, lat1, lon2, lat2)
-    # print('-----')
-    # print('fwd_azimuth = ', fwd_azimuth)
-    if fwd_azimuth < 0:
-        fwd_azimuth = abs(fwd_azimuth)+180
-    # print('fwd_azimuth = ', fwd_azimuth)
-    return fwd_azimuth
-
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler(feature_range=(-1,1))
 
@@ -1840,9 +1832,7 @@ def plot_alt_vs_time_all_clusters(df, path, ax=None, plt_kwargs={}):
 # print(list(np.arange(0, len(list(cluster_data_df.columns)), 1)))
 # cluster_idx_list = [7, 14, 16]
 # cluster_idx_list = [24, 1, 26]
-cluster_idx_list = list(np.arange(0, len(list(cluster_data_df.columns)), 1))
-# results_path = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Aviation 2023/Code and results/2_2. Aircraft behaviour category detection/results visuals/'
-results_path = r'C:/Users/nicol/Google Drive/PhD/Conferences & Papers/AIAA Journal/Code and results/results/visuals/'
+cluster_idx_list = list(np.arange(0, len(list(cluster_data_df.columns)), 1))results_path = PATHS.visuals_dir
 # fig1.write_html(results_path+"2D_map_all_tracks.html")
 # fig1.write_html(results_path+"nb clusters "+str(n_clusters)+"2D_map_all_tracks.html")
 fig1.write_html(data_dir+"results/nb clusters "+str(n_clusters)+"_2D_map_all_tracks.html")
