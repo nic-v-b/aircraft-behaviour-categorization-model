@@ -88,7 +88,7 @@ A small synthetic dataset is included so the core multivariate time-series clust
 
 ```bash
 pip install -r requirements-ci.txt
-python examples/run_demo.py
+python -m examples.run_demo
 ```
 
 The demo builds equal-length longitude/latitude/altitude trajectories and clusters them with `TimeSeriesKMeans(metric="dtw")`, matching the clustering family used in the research implementation. GitHub Actions runs this demonstration and its regression tests automatically.
@@ -159,7 +159,7 @@ This repository began as research code developed to support the published analys
 
 Shared configuration, time-conversion, geospatial, and platform helpers have been extracted into reusable modules. GitHub Actions now performs automated syntax checks, runs `pytest` unit/regression tests, and executes the deterministic synthetic trajectory-clustering demo on every push and pull request.
 
-`requirements-ci.txt` records the dependency ranges used for the automated test environment. The historical research scripts are retained separately from this test harness so that portfolio-oriented engineering improvements do not obscure the published workflow.
+`requirements-ci.txt` records the direct dependency versions tested by GitHub Actions with Python 3.11.16. The historical research scripts are retained separately from this test harness so that portfolio-oriented engineering improvements do not obscure the published workflow.
 
 ## Citation
 
