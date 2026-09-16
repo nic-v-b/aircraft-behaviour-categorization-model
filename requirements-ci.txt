@@ -1,8 +1,8 @@
-# Tested dependency ranges for GitHub Actions and the reproducible demo.
+# Direct dependency snapshot tested by GitHub Actions with Python 3.11.16.
 # The original published research environment predates this CI snapshot.
-numpy>=1.26,<3
-pandas>=2.0,<3
-pyproj>=3.6,<4
-scikit-learn>=1.4,<2
-tslearn>=0.6.3,<0.8
-pytest>=8,<10
+numpy==2.4.6
+pandas==2.3.3
+pyproj==3.7.2
+scikit-learn==1.9.1
+tslearn==0.7.0
+pytest==9.1.1
