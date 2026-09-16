@@ -16,6 +16,7 @@ import plotly.express as px
 from aircraft_behaviour.config import ResearchPaths
 from aircraft_behaviour.geo_utils import get_bearing_from_2pts
 from aircraft_behaviour.time_utils import display_time, unix_to_local, unix_to_utc
+from aircraft_behaviour.platform_utils import completion_beep
 MAPBOX_TOKEN = os.getenv("MAPBOX_TOKEN")
 if MAPBOX_TOKEN:
     px.set_mapbox_access_token(MAPBOX_TOKEN)
@@ -3230,15 +3231,6 @@ for cluster_id in n_clusters_range:
     # print('--> plotting nb clusters', str(n_clusters), 'plot_2D_centroids_all_clusters')
     plot_2D_centroids_all_clusters(lon_df=centroids_lon_df, lat_df=centroids_lat_df, ac_info_df=ac_info_data, path=results_path)
 
-import winsound
-frequency = 700  # Set Frequency To 2500 Hertz
-duration = 500  # Set Duration To 1000 ms == 1 second
-winsound.Beep(frequency, duration)
-frequency = 1500
-duration = 500
-winsound.Beep(frequency, duration)
-frequency = 700
-duration = 500
-winsound.Beep(frequency, duration)
+completion_beep()
 
 plt.show()

@@ -1,0 +1,8 @@
+# Direct dependency snapshot tested by GitHub Actions with Python 3.11.16.
+# The original published research environment predates this CI snapshot.
+numpy==2.4.6
+pandas==2.3.3
+pyproj==3.7.2
+scikit-learn==1.9.1
+tslearn==0.7.0
+pytest==9.1.1

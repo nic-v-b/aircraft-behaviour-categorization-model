@@ -1,5 +1,7 @@
 # Aircraft Behaviour Categorization Using Machine Learning
 
+[![Python CI](https://github.com/nic-v-b/aircraft-behaviour-categorization-model/actions/workflows/python-syntax.yml/badge.svg)](https://github.com/nic-v-b/aircraft-behaviour-categorization-model/actions/workflows/python-syntax.yml)
+
 Research implementation accompanying the peer-reviewed article:
 
 **N. Vincent-Boulay and C. Marsden, "Aircraft Categorization Approach Using Machine Learning to Analyze Aircraft Behavior," _Journal of Air Transportation_, 32(4), 218–229, 2024.**  
@@ -50,13 +52,20 @@ The work was developed as part of a broader research program on machine learning
 ├── generate_results_visuals.py
 ├── aircraft_behaviour/
 │   ├── config.py
+│   ├── demo_pipeline.py
 │   ├── geo_utils.py
+│   ├── platform_utils.py
 │   └── time_utils.py
+├── examples/
+│   ├── run_demo.py
+│   └── synthetic_trajectories.csv
 ├── tests/
 ├── sample results/
 ├── nb clusters 4 silhouette plot.png
 ├── nb clusters 4 feature importance plot.png
 ├── requirements.txt
+├── requirements-ci.txt
+├── RESEARCH_CODE_NOTES.md
 ├── .env.example
 └── .github/workflows/python-syntax.yml
 ```
@@ -72,6 +81,17 @@ The work was developed as part of a broader research program on machine learning
 ![Feature importance](nb%20clusters%204%20feature%20importance%20plot.png)
 
 Representative CSV outputs are available in the `sample results/` directory.
+
+## Quick reproducible demo
+
+A small synthetic dataset is included so the core multivariate time-series clustering concept can be exercised without the original ADS-B dataset:
+
+```bash
+pip install -r requirements-ci.txt
+python -m examples.run_demo
+```
+
+The demo builds equal-length longitude/latitude/altitude trajectories and clusters them with `TimeSeriesKMeans(metric="dtw")`, matching the clustering family used in the research implementation. GitHub Actions runs this demonstration and its regression tests automatically.
 
 ## Setup
 
@@ -129,13 +149,17 @@ The original study used real-world ADS-B observations together with aircraft-reg
 
 The repository preserves the research scripts used for the published study. Study-specific input/output paths are now handled through portable environment-based configuration. Sample outputs are included so that the structure of the analysis results can be inspected without the original dataset.
 
+The three original research scripts intentionally remain recognizable as the published experimental implementation rather than being rewritten wholesale into a production application. New reusable code is kept in `aircraft_behaviour/`, and the self-contained example in `examples/run_demo.py` uses a conventional `main()` entry point. See [RESEARCH_CODE_NOTES.md](RESEARCH_CODE_NOTES.md) for the preservation rationale.
+
 For the study design, preprocessing methodology, features, clustering formulation, and interpretation of results, see the published paper linked above.
 
 ## Software-engineering status
 
 This repository began as research code developed to support the published analysis. It is being incrementally curated for clearer documentation, portability, testing, and reproducibility while preserving the scientific behavior of the original implementation.
 
-Shared configuration, time-conversion, and geospatial helpers have been extracted into reusable modules. GitHub Actions now performs automated syntax checks and runs `pytest` unit tests on every push and pull request. Additional scientific regression tests can be added as representative input data are made reproducible.
+Shared configuration, time-conversion, geospatial, and platform helpers have been extracted into reusable modules. GitHub Actions now performs automated syntax checks, runs `pytest` unit/regression tests, and executes the deterministic synthetic trajectory-clustering demo on every push and pull request.
+
+`requirements-ci.txt` records the direct dependency versions tested by GitHub Actions with Python 3.11.16. The historical research scripts are retained separately from this test harness so that portfolio-oriented engineering improvements do not obscure the published workflow.
 
 ## Citation
 
