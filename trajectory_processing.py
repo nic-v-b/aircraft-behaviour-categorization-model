@@ -866,9 +866,7 @@ def PlotAircraftTimeSeriesCaseStudyTrack(data, ac_id, path):
         plt.close(fig11)
 
 # ---------------------------------------------
-# USE TQDM LOOP BELOW TO GENERATE INDIVUAL PLOTS FOR EACH SPLIT TRACKS
-# (already have them saved inC:\Users\nicol\Google Drive\PhD\Conferences & Papers\AIAA Aviation 2023\Code and results\2_2. Aircraft behaviour category detection\flight tracks\all smooth tracks)
-# for icao in tqdm(icao_list):
+# USE TQDM LOOP BELOW TO GENERATE INDIVUAL PLOTS FOR EACH SPLIT TRACKS# for icao in tqdm(icao_list):
 #     PlotAircraftTimeSeriesCaseStudyTrack(data=adsb_df, ac_id=icao, path=case_study_path)
 # ---------------------------------------------
 
