@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated Journal of Air Transportation article."
+title: "Aircraft Behaviour Categorization Using Machine Learning"
+type: software
+authors:
+  - family-names: "Vincent-Boulay"
+    given-names: "Nicolas"
+repository-code: "https://github.com/nic-v-b/aircraft-behaviour-categorization-model"
+url: "https://github.com/nic-v-b/aircraft-behaviour-categorization-model"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Vincent-Boulay"
+      given-names: "Nicolas"
+    - family-names: "Marsden"
+      given-names: "Catharine"
+  title: "Aircraft Categorization Approach Using Machine Learning to Analyze Aircraft Behavior"
+  journal: "Journal of Air Transportation"
+  volume: 32
+  issue: 4
+  year: 2024
+  start: 218
+  end: 229
+  doi: "10.2514/1.D0398"
